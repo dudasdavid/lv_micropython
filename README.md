@@ -51,6 +51,11 @@ indev_drv.register()
 
 btn1 = lv.btn(lv.scr_act())
 ```
+This fork uses v7.11 of LVGL, documentation can be found here:
+https://docs.lvgl.io/7.11/widgets/index.html
+
+Also online simulator is available for GUI design:
+https://sim.lvgl.io/v7/micropython/ports/javascript/bundle_out/index.html
 
 ---
 
