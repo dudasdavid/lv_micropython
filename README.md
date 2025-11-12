@@ -1,5 +1,59 @@
 # Micropython + lvgl
 
+# This is a fork intended to archive a working copy of lvgl micropython on STM32F746G-DISCO board
+1) use branch `stm32f746g-disco`
+2) `cd lv_micropython`
+3) `git submodule update --init --recursive lib/lv_bindings`
+4) `make -C mpy-cross CFLAGS_EXTRA="-Wno-dangling-pointer"`
+5) You might need to fix `./mpy-cross/main.c` in line 342: `mp_import_stat_t mp_import_stat(const char *path) {`
+6) `cd ports/stm32/`
+7) `make submodules`
+8) `make -j8 BOARD=STM32F7DISC MICROPY_PY_LVGL=1`
+9) flash firmware.hex with CubeProgrammer
+10) Enjoy!
+
+I used the following resources to resurrect this old project:
+- https://www.galliumio.com/1819/micropython-on-stm32f746g-disco/
+- https://blog.lvgl.io/2020-08-10/stm32-microptyothon-and-lvgl
+- https://forum.lvgl.io/t/stm32f746g-micropython-lvgl-compile-issue/14360/5
+- https://github.com/search?q=repo%3Alvgl%2Flv_binding_micropython+lvstm32&type=commits
+
+lvgl API is different from current one, but the examples from this folder are useful:
+`./lv_micropython/lib/lv_bindings/examples/`
+
+Also display init is pretty much well described on `https://blog.lvgl.io/2020-08-10/stm32-microptyothon-and-lvgl`:
+```python
+import lvgl as lv
+lv.init()
+
+import lvstm32 as st
+st.lvstm32()
+
+import rk043fn48h as rk
+rk.init()
+
+disp_buf1 = lv.disp_buf_t()
+buf1_1 = bytes(480 * 80)
+disp_buf1.init(buf1_1, None, len(buf1_1) // 4)
+disp_drv = lv.disp_drv_t()
+disp_drv.init()
+disp_drv.buffer = disp_buf1
+disp_drv.flush_cb = rk.flush
+disp_drv.hor_res = 480
+disp_drv.ver_res = 272
+disp_drv.register()
+
+indev_drv = lv.indev_drv_t()
+indev_drv.init()
+indev_drv.type = lv.INDEV_TYPE.POINTER
+indev_drv.read_cb = rk.ts_read
+indev_drv.register()
+
+btn1 = lv.btn(lv.scr_act())
+```
+
+---
+
 ![Build lv_micropython unix port](https://github.com/lvgl/lv_micropython/workflows/Build%20lv_micropython%20unix%20port/badge.svg)
 ![Build lv_micropython stm32 port](https://github.com/lvgl/lv_micropython/workflows/Build%20lv_micropython%20stm32%20port/badge.svg)
 
