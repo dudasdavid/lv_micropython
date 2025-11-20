@@ -1,19 +1,21 @@
 # Micropython + lvgl -  This is a fork intended to archive a working copy of lvgl micropython on STM32F746G-DISCO board
 
-## NOTE: Micropython footfrint is stripped down to 750kB (fitting into 768kB partition)...
+## NOTE: Micropython footfrint is stripped down to 730kB (fitting into 768kB partition)...
 
-...by turning off USB, LWIP and Ethernet and certain LVGL modules needs to be turned off in submodule `./lv_micropython/lib/lv_bindings/lv_conf.h`:
+...by turning off CAN, USB, LWIP and Ethernet, a few python modules and certain LVGL widgets. Widgets need to be turned off in submodule `./lv_micropython/lib/lv_bindings/lv_conf.h`:
 - `#define LV_FONT_DEJAVU_16_PERSIAN_HEBREW 0`
 - `#define LV_USE_THEME_MONO        0`
-- `#define LV_USE_BTNMATRIX     0`
 - `#define LV_USE_CALENDAR 0`
-- `#define LV_USE_KEYBOARD       0`
-- `#define LV_USE_MSGBOX     0`
+- `#define LV_USE_CPICKER   0`
+- `#define LV_USE_GAUGE     0`
+- `#define LV_USE_ROLLER      0`
+- `#define LV_USE_SPINBOX      0`
 - `#define LV_USE_TABVIEW      0`
 
 Therefore `/flash` was increased to 224kB from 96kB (which is a bit too tight)
 
 For flash partition changes see `stm32f746.ld` and `flashbdev.c`.
+There ares till enough space for the system to add "back" some fonts or widgets.
 
 ---
 
