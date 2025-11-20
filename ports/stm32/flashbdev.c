@@ -100,7 +100,7 @@ STATIC byte flash_cache_mem[0x4000] __attribute__((aligned(4))); // 16k
 #define CACHE_MEM_START_ADDR (0x20000000) // DTCM data RAM, 64k
 #define FLASH_SECTOR_SIZE_MAX (0x08000) // 32k max
 #define FLASH_MEM_SEG1_START_ADDR (0x08008000) // sector 1
-#define FLASH_MEM_SEG1_NUM_BLOCKS (192) // sectors 1,2,3: 32k+32k+32=96k
+#define FLASH_MEM_SEG1_NUM_BLOCKS (448) // sectors 1,2,3: 32k+32k+32k+128k=224k
 
 #elif defined(STM32H743xx)
 
