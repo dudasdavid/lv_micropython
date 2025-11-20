@@ -7,6 +7,17 @@
 #define MICROPY_HW_ENABLE_RTC       (1)
 #define MICROPY_HW_ENABLE_USB       (0)
 #define MICROPY_HW_ENABLE_SDCARD    (1)
+#define MICROPY_HW_ENABLE_CAN       (0)
+
+#define MICROPY_PY_UHASHLIB   (0)
+#define MICROPY_PY_USSL       (0)
+#define MICROPY_SSL_MBEDTLS   (0)
+#define MICROPY_PY_UZLIB      (0)
+#define MICROPY_SSL_AXTLS     (0)
+#define MICROPY_PY_BLUETOOTH  (0)
+#define MICROPY_PY_USOCKET    (0)
+#define MICROPY_PY_NETWORK    (0)
+#define MICROPY_DHT    (0)
 
 #define MICROPY_BOARD_EARLY_INIT    STM32F7DISC_board_early_init
 void STM32F7DISC_board_early_init(void);
@@ -52,10 +63,10 @@ void STM32F7DISC_board_early_init(void);
 #define MICROPY_HW_SPI2_MOSI        (pin_B15)
 
 // CAN busses
-#define MICROPY_HW_CAN1_TX          (pin_B9)
-#define MICROPY_HW_CAN1_RX          (pin_B8)
-#define MICROPY_HW_CAN2_TX          (pin_B13)
-#define MICROPY_HW_CAN2_RX          (pin_B12)
+//#define MICROPY_HW_CAN1_TX          (pin_B9)
+//#define MICROPY_HW_CAN1_RX          (pin_B8)
+//#define MICROPY_HW_CAN2_TX          (pin_B13)
+//#define MICROPY_HW_CAN2_RX          (pin_B12)
 
 // USRSW is pulled low. Pressing the button makes the input go high.
 #define MICROPY_HW_USRSW_PIN        (pin_I11)
