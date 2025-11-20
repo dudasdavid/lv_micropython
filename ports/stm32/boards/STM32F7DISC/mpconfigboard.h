@@ -5,7 +5,7 @@
 #define MICROPY_HW_HAS_FLASH        (1)
 #define MICROPY_HW_ENABLE_RNG       (1)
 #define MICROPY_HW_ENABLE_RTC       (1)
-#define MICROPY_HW_ENABLE_USB       (1)
+#define MICROPY_HW_ENABLE_USB       (0)
 #define MICROPY_HW_ENABLE_SDCARD    (1)
 
 #define MICROPY_BOARD_EARLY_INIT    STM32F7DISC_board_early_init
@@ -77,21 +77,21 @@ void STM32F7DISC_board_early_init(void);
 // The Hardware VBUS detect only works on pin PA9. The STM32F7 Discovery uses
 // PA9 for VCP_TX functionality and connects the VBUS to pin J12 (so software
 // only detect). So we don't define the VBUS detect pin since that requires PA9.
-#define MICROPY_HW_USB_FS              (1)
+#define MICROPY_HW_USB_FS              (0)
 /*#define MICROPY_HW_USB_VBUS_DETECT_PIN (pin_J12)*/
-#define MICROPY_HW_USB_OTG_ID_PIN      (pin_A10)
+//#define MICROPY_HW_USB_OTG_ID_PIN      (pin_A10)
 
 // Ethernet via RMII
-#define MICROPY_HW_ETH_MDC          (pin_C1)
-#define MICROPY_HW_ETH_MDIO         (pin_A2)
-#define MICROPY_HW_ETH_RMII_REF_CLK (pin_A1)
-#define MICROPY_HW_ETH_RMII_CRS_DV  (pin_A7)
-#define MICROPY_HW_ETH_RMII_RXD0    (pin_C4)
-#define MICROPY_HW_ETH_RMII_RXD1    (pin_C5)
-#define MICROPY_HW_ETH_RMII_RXER    (pin_G2)
-#define MICROPY_HW_ETH_RMII_TX_EN   (pin_G11)
-#define MICROPY_HW_ETH_RMII_TXD0    (pin_G13)
-#define MICROPY_HW_ETH_RMII_TXD1    (pin_G14)
+//#define MICROPY_HW_ETH_MDC          (pin_C1)
+//#define MICROPY_HW_ETH_MDIO         (pin_A2)
+//#define MICROPY_HW_ETH_RMII_REF_CLK (pin_A1)
+//#define MICROPY_HW_ETH_RMII_CRS_DV  (pin_A7)
+//#define MICROPY_HW_ETH_RMII_RXD0    (pin_C4)
+//#define MICROPY_HW_ETH_RMII_RXD1    (pin_C5)
+//#define MICROPY_HW_ETH_RMII_RXER    (pin_G2)
+//#define MICROPY_HW_ETH_RMII_TX_EN   (pin_G11)
+//#define MICROPY_HW_ETH_RMII_TXD0    (pin_G13)
+//#define MICROPY_HW_ETH_RMII_TXD1    (pin_G14)
 
 // SDRAM
 #define MICROPY_HW_SDRAM_SIZE  (64 / 8 * 1024 * 1024)  // 64 Mbit
