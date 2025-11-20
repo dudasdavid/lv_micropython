@@ -1,16 +1,34 @@
-# Micropython + lvgl
+# Micropython + lvgl -  This is a fork intended to archive a working copy of lvgl micropython on STM32F746G-DISCO board
 
-# This is a fork intended to archive a working copy of lvgl micropython on STM32F746G-DISCO board
+## NOTE: Micropython footfrint is stripped down to 750kB (fitting into 768kB partition)...
+
+...by turning off USB, LWIP and Ethernet and certain LVGL modules needs to be turned off in submodule `./lv_micropython/lib/lv_bindings/lv_conf.h`:
+- `#define LV_FONT_DEJAVU_16_PERSIAN_HEBREW 0`
+- `#define LV_USE_THEME_MONO        0`
+- `#define LV_USE_BTNMATRIX     0`
+- `#define LV_USE_CALENDAR 0`
+- `#define LV_USE_KEYBOARD       0`
+- `#define LV_USE_MSGBOX     0`
+- `#define LV_USE_TABVIEW      0`
+
+Therefore `/flash` was increased to 224kB from 96kB (which is a bit too tight)
+
+For flash partition changes see `stm32f746.ld` and `flashbdev.c`.
+
+---
+
+## Building instructions:  
 1) use branch `stm32f746g-disco`
 2) `cd lv_micropython`
 3) `git submodule update --init --recursive lib/lv_bindings`
 4) `make -C mpy-cross CFLAGS_EXTRA="-Wno-dangling-pointer"`
-5) You might need to fix `./mpy-cross/main.c` in line 342: `mp_import_stat_t mp_import_stat(const char *path) {`
+5) `./mpy-cross/main.c` is fixed in line 342: `mp_import_stat_t mp_import_stat(const char *path) {` to avoid comilation issues
 6) `cd ports/stm32/`
 7) `make submodules`
-8) `make -j8 BOARD=STM32F7DISC MICROPY_PY_LVGL=1`
-9) flash firmware.hex with CubeProgrammer
-10) Enjoy!
+8) If you change anything in micropython and lvgl modules make sure that `./lv_micropython/ports/lib/lv_bindings/` folder is always deleted manually, otherwise frozen modules and display driver will be messed up
+9) `make -j8 BOARD=STM32F7DISC MICROPY_PY_LVGL=1`
+10) flash firmware.hex with CubeProgrammer
+11) Enjoy!
 
 I used the following resources to resurrect this old project:
 - https://www.galliumio.com/1819/micropython-on-stm32f746g-disco/
@@ -57,6 +75,7 @@ https://docs.lvgl.io/7.11/widgets/index.html
 Also online simulator is available for GUI design:
 https://sim.lvgl.io/v7/micropython/ports/javascript/bundle_out/index.html
 
+---
 ---
 
 ![Build lv_micropython unix port](https://github.com/lvgl/lv_micropython/workflows/Build%20lv_micropython%20unix%20port/badge.svg)
