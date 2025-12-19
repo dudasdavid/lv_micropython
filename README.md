@@ -12,7 +12,7 @@
 - `#define LV_USE_SPINBOX      0`
 - `#define LV_USE_TABVIEW      0`
 
-Therefore `/flash` was increased to 224kB from 96kB (which is a bit too tight)
+Therefore `/flash` was increased to 160kB from 96kB (which is a bit too tight). --> 3x32k + 64k out of 128k in sector 4.
 
 For flash partition changes see `stm32f746.ld` and `flashbdev.c`.
 There ares till enough space for the system to add "back" some fonts or widgets.
