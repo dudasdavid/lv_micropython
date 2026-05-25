@@ -32,6 +32,31 @@ There ares till enough space for the system to add "back" some fonts or widgets.
 10) flash firmware.hex with CubeProgrammer
 11) Enjoy!
 
+## Building instructions for simulator on MacOS:
+1) use branch `stm32f746g-disco`
+2) set up SDL:
+```
+brew install sdl2 pkg-config
+export CPPFLAGS="-I/opt/homebrew/include"
+export CFLAGS="-I/opt/homebrew/include"
+export LDFLAGS="-L/opt/homebrew/lib"
+export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig"
+```
+3) `cd lv_micropython`
+4) `git submodule update --init --recursive lib/lv_bindings`
+5) `make -C mpy-cross clean` and `make -C mpy-cross CFLAGS_EXTRA="-Wno-error -Wno-unused-but-set-variable -Wno-gnu-folding-constant"`
+6) Remove frozen image tool:
+```
+cp ports/unix/variants/manifest.py ports/unix/variants/manifest.py.bak
+sed -i '' "/imagetools.py/s/^/# /" ports/unix/variants/manifest.py
+```
+7) Build for Unix:
+```
+make -C ports/unix clean
+make -C ports/unix -j8 CFLAGS_EXTRA="-Wno-error -Wno-unused-but-set-variable -Wno-gnu-folding-constant -Wno-pointer-to-int-cast"
+```
+8) `./ports/unix/micropython`
+
 I used the following resources to resurrect this old project:
 - https://www.galliumio.com/1819/micropython-on-stm32f746g-disco/
 - https://blog.lvgl.io/2020-08-10/stm32-microptyothon-and-lvgl
